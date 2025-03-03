@@ -1,0 +1,22 @@
+{
+   "compilerOptions": {
+     "experimentalDecorators": true,
+     "emitDecoratorMetadata": true,
+     "target": "ES6",                   
+     "module": "CommonJS",               
+     "strict": true,                     
+     "esModuleInterop": true,   
+     "strictNullChecks": false,         
+     "skipLibCheck": true,               
+     "forceConsistentCasingInFileNames": true,
+     "outDir": "./dist",                 
+     "rootDir": "./src",                 
+     "resolveJsonModule": true,          
+     "allowSyntheticDefaultImports": true,
+     "noImplicitAny": false,                      
+     "strictFunctionTypes": true         
+   },
+   "include": ["src"],
+   "exclude": ["node_modules", "dist"]
+ }
+ 
