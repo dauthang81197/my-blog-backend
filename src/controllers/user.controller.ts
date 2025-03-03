@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../databases/data-source";
-
-import { encrypt } from "../helpers/encrypt";
 import * as cache from "memory-cache";
+
+import { AppDataSource } from "../databases/data-source";
 import { User } from "../entity/User";
+import { encrypt } from "../helpers/encrypt";
 
 export class UserController {
   static async signup(req: Request, res: Response): Promise<any> {

@@ -1,12 +1,14 @@
-import { AppDataSource } from "./databases/data-source";
-import express, { Request, Response } from "express";
 import * as dotenv from "dotenv";
-import { userRouter } from "./routes/user.routes";
-import "reflect-metadata";
-import swaggerUi from "swagger-ui-express";
-import swaggerJsDoc from "swagger-jsdoc";
-import fs from "fs";
+import express from "express";
 import path from "path";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+
+import { AppDataSource } from "./databases/data-source";
+import { userRouter } from "./routes/user.routes";
+
+import "reflect-metadata";
+
 dotenv.config();
 
 const app = express();
@@ -41,7 +43,7 @@ AppDataSource.initialize()
     app.listen(PORT, () => {
       console.log("Server is running on http://localhost:" + PORT);
       console.log(
-        "Swagger docs available at http://localhost:" + PORT + "/documentation"
+        "Swagger docs available at http://localhost:" + PORT + "/documentation",
       );
     });
     console.log("Data Source has been initialized!");

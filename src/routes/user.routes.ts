@@ -1,8 +1,9 @@
 import * as express from "express";
-import { authentification } from "../middleware/authentification";
-import { UserController } from "../controllers/user.controller";
-import { authorization } from "../middleware/authorization";
+
 import { AuthController } from "../controllers/auth.controller";
+import { UserController } from "../controllers/user.controller";
+import { authentification } from "../middleware/authentification";
+import { authorization } from "../middleware/authorization";
 const Router = express.Router();
 /**
  * @swagger
@@ -31,13 +32,13 @@ Router.get(
   "/users",
   authentification,
   authorization(["admin"]),
-  UserController.getUsers
+  UserController.getUsers,
 );
 Router.get(
   "/profile",
   authentification,
   authorization(["user", "admin"]),
-  AuthController.getProfile
+  AuthController.getProfile,
 );
 Router.post("/signup", UserController.signup);
 Router.post("/login", AuthController.login);
@@ -45,12 +46,12 @@ Router.put(
   "/update/:id",
   authentification,
   authorization(["user", "admin"]),
-  UserController.updateUser
+  UserController.updateUser,
 );
 Router.delete(
   "/delete/:id",
   authentification,
   authorization(["admin"]),
-  UserController.deleteUser
+  UserController.deleteUser,
 );
 export { Router as userRouter };

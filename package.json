@@ -9,17 +9,29 @@
       "@types/jsonwebtoken": "^9.0.9",
       "@types/memory-cache": "^0.2.6",
       "@types/node": "^16.11.10",
+      "@typescript-eslint/eslint-plugin": "^8.25.0",
+      "@typescript-eslint/parser": "^8.25.0",
+      "cz-conventional-changelog": "^3.3.0",
+      "eslint": "^9.21.0",
+      "eslint-config-prettier": "^10.0.2",
+      "eslint-plugin-import": "^2.31.0",
+      "eslint-plugin-prettier": "^5.2.3",
+      "husky": "^9.1.7",
+      "lint-staged": "^15.4.3",
       "nodemon": "^3.1.9",
-      "ts-node": "10.9.1",
+      "prettier": "^3.5.3",
+      "ts-node": "^10.9.2",
       "typescript": "4.5.2"
    },
    "dependencies": {
       "@types/cors": "^2.8.17",
       "bcrypt": "^5.1.1",
+      "commitizen": "^4.3.1",
       "concurrently": "^9.1.2",
       "dotenv": "^16.4.7",
       "express": "^4.21.2",
       "jsonwebtoken": "^9.0.2",
+      "lodash": "^4.17.21",
       "memory-cache": "^0.2.0",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
@@ -29,13 +41,35 @@
       "typeorm": "0.3.20"
    },
    "scripts": {
+      "husky-run": "husky-run",
       "watch": "tsc -w",
       "dev": "nodemon build/index.js",
       "start:dev": "concurrently \"tsc -w\" \"nodemon build/index.js\"",
       "build": "tsc",
       "start": "nodemon --exec ts-node src/index.ts",
+      "lint": "eslint src --ext .ts",
+      "lint:fix": "eslint src --ext .ts --fix",
       "typeorm": "typeorm-ts-node-commonjs",
       "migration-run": "npm run typeorm migration:run -- -d ./src/databases/data-source.ts",
-      "migration-generate": "npm run typeorm migration:generate -- -d ./src/databases/data-source.ts"
+      "migration-generate": "npm run typeorm migration:generate -- -d ./src/databases/data-source.ts",
+      "migrate:create": "ts-node ./src/scripts/create-migration.ts",
+      "migrate:generate": "ts-node ./src/scripts/generate-migration.ts",
+      "prepare": "husky"
+   },
+   "husky": {
+      "hooks": {
+         "pre-commit": "lint-staged"
+      }
+   },
+   "lint-staged": {
+      "*.ts": [
+         "yarn lint:fix",
+         "yarn lint"
+      ]
+   },
+   "config": {
+      "commitizen": {
+         "path": "./node_modules/cz-conventional-changelog"
+      }
    }
 }
