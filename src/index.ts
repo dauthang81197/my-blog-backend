@@ -5,18 +5,25 @@ import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
 import { AppDataSource } from "./databases/data-source";
-import { userRouter } from "./routes/user.routes";
-
-import "reflect-metadata";
+import { authRouter } from "./routes/auth.routes";
+import { helloRouter } from "./routes/hello.routes";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 
-const { PORT = 3000 } = process.env;
-app.use("/auth", userRouter);
+const { PORT = 8080 } = process.env;
+// Định nghĩa base URL
+const baseUrl = "/api/v1";
 
+app.use(baseUrl, (req, res, next) => {
+  console.log(`Request received at: ${req.originalUrl}`);
+  next();
+});
+
+app.use(`${baseUrl}/auth`, authRouter);
+app.use(`${baseUrl}`, helloRouter);
 // Swagger setup
 const swaggerOptions = {
   definition: {
@@ -28,11 +35,14 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:8080",
+        url: "http://localhost:${PORT}${baseUrl}",
       },
     ],
   },
-  apis: [path.join(__dirname, "./routes/*.ts")],
+  apis: [
+    path.join(__dirname, "./routes/*.ts"),
+    path.join(__dirname, "./routes/*.js"),
+  ],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

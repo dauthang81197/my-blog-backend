@@ -7,6 +7,7 @@ import { encrypt } from "../helpers/encrypt";
 export class AuthController {
   static async login(req: Request, res: Response): Promise<any> {
     try {
+      console.log("aflksdflksdj");
       const { email, password } = req.body;
       if (!email || !password) {
         return res
